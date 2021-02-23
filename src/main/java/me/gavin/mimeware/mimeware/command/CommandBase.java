@@ -1,11 +1,16 @@
 package me.gavin.mimeware.mimeware.command;
 
+import me.gavin.mimeware.Mimeware;
 import me.gavin.mimeware.mimeware.misc.Utils;
+import net.minecraft.client.Minecraft;
 
 import java.util.Arrays;
 import java.util.List;
 
 public abstract class CommandBase {
+
+    protected Minecraft mc = Minecraft.getMinecraft();
+    protected Mimeware mimeware = Mimeware.getMimeware();
 
     private String name, syntax;
     private List<String > aliases;

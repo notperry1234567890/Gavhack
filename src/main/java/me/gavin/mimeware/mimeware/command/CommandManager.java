@@ -1,7 +1,7 @@
 package me.gavin.mimeware.mimeware.command;
 
 import me.gavin.mimeware.Mimeware;
-import me.gavin.mimeware.mimeware.command.commands.ExampleCMD;
+import me.gavin.mimeware.mimeware.command.commands.ToggleCMD;
 import me.gavin.mimeware.mimeware.events.PlayerChatEvent;
 import me.gavin.mimeware.mimeware.misc.Utils;
 import me.zero.alpine.listener.EventHandler;
@@ -11,6 +11,8 @@ import net.minecraft.client.Minecraft;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+// made partly by following the command tutorial from "intent store" on youtube
+// because i have never made a command system before :)
 public class CommandManager {
 
     Minecraft mc = Minecraft.getMinecraft();
@@ -24,7 +26,7 @@ public class CommandManager {
     ArrayList<CommandBase> commands = new ArrayList<>();
 
     private void init() {
-        add(new ExampleCMD());
+        add(new ToggleCMD());
     }
 
     private void add(CommandBase command) {
