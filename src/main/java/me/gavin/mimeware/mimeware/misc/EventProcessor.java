@@ -1,9 +1,7 @@
 package me.gavin.mimeware.mimeware.misc;
 
 import me.gavin.mimeware.Mimeware;
-import me.gavin.mimeware.mimeware.events.PlayerChatEvent;
-import me.gavin.mimeware.mimeware.events.Render2dEvent;
-import me.gavin.mimeware.mimeware.events.Render3dEvent;
+import me.gavin.mimeware.mimeware.events.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
@@ -12,6 +10,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.awt.*;
 
@@ -53,5 +52,13 @@ public class EventProcessor {
         mimeware.EVENT_BUS.post(playerChatEvent);
         if (playerChatEvent.isCancelled())
             event.setCanceled(true);
+    }
+
+    @SubscribeEvent
+    public void onTick(TickEvent.ClientTickEvent event) {
+        if (mc.world == null || mc.player == null)
+            return;
+
+        mimeware.EVENT_BUS.post(new LocalTickEvent());
     }
 }

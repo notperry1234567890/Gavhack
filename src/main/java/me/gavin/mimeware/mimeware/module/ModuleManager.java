@@ -1,5 +1,7 @@
 package me.gavin.mimeware.mimeware.module;
 
+import me.gavin.mimeware.mimeware.module.mods.SprintMod;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,10 +15,17 @@ public class ModuleManager {
     ArrayList<Module> modules = new ArrayList<>();
 
     private void init() {
+        // combat
 
+        // render
+        add(new SprintMod());
+
+        // movement
+
+        // world
     }
 
-    private final void add(Module m) {
+    private void add(Module m) {
         modules.add(m);
     }
 

@@ -1,9 +1,8 @@
 package me.gavin.mimeware.mimeware.events;
 
-import me.zero.alpine.type.Cancellable;
 import net.minecraft.client.gui.ScaledResolution;
 
-public class Render2dEvent extends Cancellable {
+public class Render2dEvent {
 
     private final ScaledResolution sr;
 
