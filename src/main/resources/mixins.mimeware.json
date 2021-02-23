@@ -4,7 +4,8 @@
   "refmap": "mixins.mimeware.refmap.json",
   "mixins": [
     "MixinGuiMainMenu",
-    "MixinMinecraft"
+    "MixinMinecraft",
+    "MixinNetworkManager"
   ],
   "client": [],
   "server": []
