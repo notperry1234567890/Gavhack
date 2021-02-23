@@ -9,6 +9,7 @@ import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -48,12 +49,24 @@ public class EventProcessor {
         GlStateManager.popMatrix();
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onChat(ClientChatEvent event) {
-        PlayerChatEvent playerChatEvent = new PlayerChatEvent(event.getMessage());
+        PlayerChatEvent.Pre playerChatEvent = new PlayerChatEvent.Pre(event.getMessage());
         mimeware.EVENT_BUS.post(playerChatEvent);
         if (playerChatEvent.isCancelled())
             event.setCanceled(true);
+
+        event.setMessage(playerChatEvent.getMessage());
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public void onChatPost(ClientChatEvent event) {
+        PlayerChatEvent.Post playerChatEvent = new PlayerChatEvent.Post(event.getMessage());
+        mimeware.EVENT_BUS.post(playerChatEvent);
+        if (playerChatEvent.isCancelled())
+            event.setCanceled(true);
+
+        event.setMessage(playerChatEvent.getMessage());
     }
 
     @SubscribeEvent

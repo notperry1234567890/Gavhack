@@ -12,12 +12,13 @@ public abstract class CommandBase {
     protected Minecraft mc = Minecraft.getMinecraft();
     protected Mimeware mimeware = Mimeware.getMimeware();
 
-    private String name, syntax;
+    private String name, syntax, desc;
     private List<String > aliases;
 
-    public CommandBase(String name, String syntax, String... aliases) {
+    public CommandBase(String name, String syntax, String description,String... aliases) {
         this.name = name;
         this.syntax = syntax;
+        this.desc = description;
         this.aliases = Arrays.asList(aliases);
     }
 
@@ -25,6 +26,10 @@ public abstract class CommandBase {
 
     public String getName() {
         return name;
+    }
+
+    public String getDesc() {
+        return desc;
     }
 
     public List<String> getAliases() {
@@ -35,7 +40,7 @@ public abstract class CommandBase {
         return syntax;
     }
 
-    private void sendSyntaxError() {
-        Utils.printMSG("Syntax error, " + syntax);
+    public void sendSyntaxError() {
+        Utils.printMSG("Syntax error: " + syntax);
     }
 }

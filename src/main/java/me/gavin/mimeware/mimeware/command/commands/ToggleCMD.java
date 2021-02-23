@@ -7,13 +7,13 @@ import me.gavin.mimeware.mimeware.module.Module;
 
 public class ToggleCMD extends CommandBase {
     public ToggleCMD() {
-        super("toggle", "toggle <module>", "t");
+        super("toggle", "toggle <module>", "toggles a specified module", "t");
     }
 
     @Override
     public void onCommand(String[] args, String message) {
         if (args.length == 0) {
-            Utils.printMSG("Please specify a module");
+            sendSyntaxError();
             return;
         }
 
@@ -21,6 +21,7 @@ public class ToggleCMD extends CommandBase {
 
         if (targetMod == null) {
             Utils.printMSG("Could not find a module with that name");
+            sendSyntaxError();
             return;
         }
 

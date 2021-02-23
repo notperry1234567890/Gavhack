@@ -1,5 +1,6 @@
 package me.gavin.mimeware.mimeware.module;
 
+import me.gavin.mimeware.mimeware.module.mods.ChatSuffixMod;
 import me.gavin.mimeware.mimeware.module.mods.SprintMod;
 
 import java.util.ArrayList;
@@ -23,6 +24,9 @@ public class ModuleManager {
         // movement
 
         // world
+
+        // misc
+        add(new ChatSuffixMod());
     }
 
     private void add(Module m) {

@@ -1,6 +1,8 @@
 package me.gavin.mimeware.mimeware.command;
 
 import me.gavin.mimeware.Mimeware;
+import me.gavin.mimeware.mimeware.command.commands.HelpCMD;
+import me.gavin.mimeware.mimeware.command.commands.PrefixCMD;
 import me.gavin.mimeware.mimeware.command.commands.ToggleCMD;
 import me.gavin.mimeware.mimeware.events.KeyPressEvent;
 import me.gavin.mimeware.mimeware.events.PlayerChatEvent;
@@ -9,7 +11,6 @@ import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
-import net.minecraft.client.gui.GuiNewChat;
 import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
@@ -31,17 +32,23 @@ public class CommandManager {
 
     private void init() {
         add(new ToggleCMD());
+        add(new HelpCMD());
+        add(new PrefixCMD());
     }
 
     private void add(CommandBase command) {
         commands.add(command);
     }
 
+    public ArrayList<CommandBase> getCommands() {
+        return commands;
+    }
+
     public char prefix = '.';
 
     // listening for chat events
     @EventHandler
-    private Listener<PlayerChatEvent> chatListener = new Listener<>(event -> {
+    private Listener<PlayerChatEvent.Pre> chatListener = new Listener<>(event -> {
         String message = event.getMessage();
         if (message.startsWith(String.valueOf(prefix))) {
             event.cancel();
@@ -66,7 +73,7 @@ public class CommandManager {
                         return;
                     }
                 }
-                Utils.printMSG("Command not found, type " + prefix + "list for a list of commands");
+                Utils.printMSG("Command not found, type " + prefix + "help for a list of commands");
             } else {
                 Utils.printMSG("Invalid command syntax");
             }
