@@ -10,6 +10,7 @@ buildscript {
         classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
     }
 }
+
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'com.github.johnrengelman.shadow'
@@ -96,22 +97,16 @@ shadowJar {
 }
 
 jar {
-    from(configurations.provided.collect {
-        it.isDirectory() ? it : zipTree(it)
-    }) {
-        exclude "LICENSE.txt", "META-INF/MANIFSET.MF", "META-INF/maven/**", "META-INF/*.RSA", "META-INF/*.SF"
-    }
-
     manifest {
-	attributes (
-		"FMLAT": "mimeware_at.cfg",
-		"FMLCorePlugin": mod_core_plugin,
-		"FMLCorePluginContainsFMLMod": "true",
-		"ForceLoadAsMod": "true",
-		"TweakClass": "org.spongepowered.asm.launch.MixinTweaker",
-		"TweakOrder": "0",
-		"MixinConfigs": mod_mixin_configs.replace('${mod_id}', mod_id)
-	)
+		attributes (
+			"FMLAT": "mimeware_at.cfg",
+			"FMLCorePlugin": mod_core_plugin,
+			"FMLCorePluginContainsFMLMod": "true",
+			"ForceLoadAsMod": "true",
+			"TweakClass": "org.spongepowered.asm.launch.MixinTweaker",
+			"TweakOrder": "0",
+			"MixinConfigs": mod_mixin_configs.replace('${mod_id}', mod_id)
+		)
     }
 }
 
