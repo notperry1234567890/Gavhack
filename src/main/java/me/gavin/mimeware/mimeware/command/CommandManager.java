@@ -2,11 +2,15 @@ package me.gavin.mimeware.mimeware.command;
 
 import me.gavin.mimeware.Mimeware;
 import me.gavin.mimeware.mimeware.command.commands.ToggleCMD;
+import me.gavin.mimeware.mimeware.events.KeyPressEvent;
 import me.gavin.mimeware.mimeware.events.PlayerChatEvent;
 import me.gavin.mimeware.mimeware.misc.Utils;
 import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiChat;
+import net.minecraft.client.gui.GuiNewChat;
+import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,6 +70,13 @@ public class CommandManager {
             } else {
                 Utils.printMSG("Invalid command syntax");
             }
+        }
+    });
+
+    @EventHandler
+    private Listener<KeyPressEvent> keyListener = new Listener<>(event -> {
+        if (event.getKey() == Keyboard.getKeyIndex(String.valueOf(prefix))) {
+            mc.displayGuiScreen(new GuiChat(String.valueOf(prefix)));
         }
     });
 }

@@ -1,5 +1,6 @@
 package me.gavin.mimeware.mimeware.command.commands;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gavin.mimeware.mimeware.command.CommandBase;
 import me.gavin.mimeware.mimeware.misc.Utils;
 import me.gavin.mimeware.mimeware.module.Module;
@@ -23,7 +24,12 @@ public class ToggleCMD extends CommandBase {
             return;
         }
 
+        if (targetMod.isEnabled()) {
+            Utils.printMSG(ChatFormatting.RED + "disabled " + ChatFormatting.RESET + targetMod.getName());
+        } else {
+            Utils.printMSG(ChatFormatting.GREEN + "enabled " + ChatFormatting.RESET + targetMod.getName());
+        }
+
         targetMod.toggle();
-        Utils.printMSG("Toggled " + targetMod.getName());
     }
 }

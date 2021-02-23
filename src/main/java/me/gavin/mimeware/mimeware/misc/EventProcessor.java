@@ -10,7 +10,9 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
 
@@ -60,5 +62,12 @@ public class EventProcessor {
             return;
 
         mimeware.EVENT_BUS.post(new LocalTickEvent());
+    }
+
+    @SubscribeEvent
+    public void onKey(InputEvent.KeyInputEvent event) {
+        if (Keyboard.getEventKeyState()) {
+            mimeware.EVENT_BUS.post(new KeyPressEvent(Keyboard.getEventKey()));
+        }
     }
 }
