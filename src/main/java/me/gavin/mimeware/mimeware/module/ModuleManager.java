@@ -1,6 +1,8 @@
 package me.gavin.mimeware.mimeware.module;
 
 import me.gavin.mimeware.mimeware.module.mods.ChatSuffixMod;
+import me.gavin.mimeware.mimeware.module.mods.FastPlaceMod;
+import me.gavin.mimeware.mimeware.module.mods.FullbrightMod;
 import me.gavin.mimeware.mimeware.module.mods.SprintMod;
 
 import java.util.ArrayList;
@@ -19,11 +21,13 @@ public class ModuleManager {
         // combat
 
         // render
-        add(new SprintMod());
+        add(new FullbrightMod());
 
         // movement
+        add(new SprintMod());
 
         // world
+        add(new FastPlaceMod());
 
         // misc
         add(new ChatSuffixMod());

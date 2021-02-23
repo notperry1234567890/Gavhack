@@ -67,6 +67,8 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+
+    rename "(.+_at.cfg)", 'META-INF/$1'
 }
 
 mixin {
@@ -101,6 +103,7 @@ jar {
     }
 
     manifest {
+        attributes "FMLAT": "mimeware_at.cfg"
         attributes "FMLCorePlugin": mod_core_plugin
         attributes "FMLCorePluginContainsFMLMod": "true"
         attributes "ForceLoadAsMod": "true"
