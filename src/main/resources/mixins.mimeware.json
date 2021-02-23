@@ -1,0 +1,11 @@
+{
+  "compatibilityLevel": "JAVA_8",
+  "package": "me.gavin.mimeware.mixin.mixins",
+  "refmap": "mixins.mimeware.refmap.json",
+  "mixins": [
+    "MixinGuiMainMenu",
+    "MixinMinecraft"
+  ],
+  "client": [],
+  "server": []
+}
