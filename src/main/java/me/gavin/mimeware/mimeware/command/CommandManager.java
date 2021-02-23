@@ -75,7 +75,7 @@ public class CommandManager {
 
     @EventHandler
     private Listener<KeyPressEvent> keyListener = new Listener<>(event -> {
-        if (event.getKey() == Keyboard.getKeyIndex(String.valueOf(prefix))) {
+        if (prefix == Keyboard.getEventCharacter()) {
             mc.displayGuiScreen(new GuiChat(String.valueOf(prefix)));
         }
     });
