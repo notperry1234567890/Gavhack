@@ -1,11 +1,14 @@
 package me.gavin.mimeware.client.misc;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gavin.mimeware.Mimeware;
 import me.gavin.mimeware.client.events.KeyPressEvent;
 import me.gavin.mimeware.client.events.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -36,8 +39,35 @@ public class EventProcessor {
         mc.profiler.startSection("mimeware");
 
         // where all on-screen renders are passed through
-        mimeware.EVENT_BUS.post(new Render2dEvent(new ScaledResolution(mc)));
-        mimeware.font.drawStringWithShadow(Mimeware.MOD_NAME + " " + Mimeware.VERSION, 2, 2, new Color(-1));
+        ScaledResolution sr = new ScaledResolution(mc);
+        mimeware.EVENT_BUS.post(new Render2dEvent(sr));
+        Utils.drawRainbowFont(Mimeware.MOD_NAME + " " + Mimeware.VERSION, 2, 2);
+
+        // coords
+        Entity entity = this.mc.getRenderViewEntity();
+        EnumFacing enumfacing = entity.getHorizontalFacing();
+        String s = "Invalid";
+
+        switch (enumfacing)
+        {
+            case NORTH:
+                s = "North [-Z]";
+                break;
+            case SOUTH:
+                s = "South [-Z]";
+                break;
+            case WEST:
+                s = "West [-X]";
+                break;
+            case EAST:
+                s = "East [+X]";
+        }
+
+        String XYZPos = String.format("XYZ %.1f, %.1f, %.1f", mc.player.posX, mc.player.posY, mc.player.posZ);
+
+        Utils.drawRainbowFont(s, 2,  sr.getScaledHeight() - 6 - (mimeware.font.getHeight() * 2));
+        Utils.drawRainbowFont(XYZPos, 2, sr.getScaledHeight() - 3 - mimeware.font.getHeight());
+
 
         mc.profiler.endSection();
         GlStateManager.popMatrix();

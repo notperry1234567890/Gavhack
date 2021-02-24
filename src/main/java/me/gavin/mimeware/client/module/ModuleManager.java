@@ -30,6 +30,7 @@ public class ModuleManager {
         // misc
         add(new ChatSuffix());
         add(new ClickGUI());
+        add(new AntiCrash());
 
         modules.sort(this::compareTo);
     }

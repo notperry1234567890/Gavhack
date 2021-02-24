@@ -1,6 +1,7 @@
 package me.gavin.mimeware.client.gui.clickgui;
 
 import me.gavin.mimeware.Mimeware;
+import me.gavin.mimeware.client.misc.Utils;
 import me.gavin.mimeware.client.module.Category;
 import me.gavin.mimeware.client.module.Module;
 import net.minecraft.client.gui.Gui;
@@ -30,7 +31,7 @@ public class Panel {
 
     public void draw(int mouseX, int mouseY) {
         Gui.drawRect(x, y, x + width, y + height, 0xcc000000);
-        mimeware.font.drawString(category.toString() + " (" + modules.size() + ")", x + 3, y + 3, new Color(-1));
+        Utils.drawRainbowFont(category.toString() + " (" + modules.size() + ")", x + 3, y + 3);
     }
 
     public boolean isMouseWithinHeader(int mouseX, int mouseY) {
