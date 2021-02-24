@@ -16,8 +16,10 @@ public class ModuleManager {
 
     private void init() {
         // combat
+        add(new Criticals());
 
         // render
+        add(new Fullbright());
 
         // movement
         add(new Sprint());
