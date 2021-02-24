@@ -22,6 +22,7 @@ public class RenderUtil {
         GL11.glEnable(3042);
         GL11.glDisable(3553);
         GL11.glDisable(2929);
+        GL11.glDepthMask(false);
         GL11.glLineWidth(3);
     }
 
