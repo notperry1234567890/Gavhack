@@ -1,8 +1,8 @@
 buildscript {
     repositories {
         jcenter()
-        maven { url = "http://files.minecraftforge.net/maven" }
-        maven { url = "https://repo.spongepowered.org/maven" }
+        maven { url = 'https://files.minecraftforge.net/maven' }
+        maven { url = 'https://repo.spongepowered.org/maven' }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
@@ -11,29 +11,23 @@ buildscript {
     }
 }
 
-apply plugin: 'net.minecraftforge.gradle.forge'
-apply plugin: 'org.spongepowered.mixin'
+apply plugin: "net.minecraftforge.gradle.forge"
 apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'org.spongepowered.mixin'
 
-version = mod_version
-group = mod_group
-archivesBaseName = mod_id
-
-sourceCompatibility = targetCompatibility = '1.8'
-compileJava {
-    sourceCompatibility = targetCompatibility = '1.8'
-}
+group = 'me.gavin'
+version = '1.0'
+archivesBaseName = 'mimeware'
 
 minecraft {
-    version = "${minecraft_version}-${forge_version}"
+    version = project.forgeVersion
     runDir = "run"
-    mappings = mappings_version
-    String resolved_core_plugin = mod_core_plugin.replace('${mod_group}', mod_group).replace('${mod_id}', mod_id);
-    clientJvmArgs += "-Dfml.coreMods.load=${resolved_core_plugin}"
-    serverJvmArgs += "-Dfml.coreMods.load=${resolved_core_plugin}"
-    String resolved_core_config = mod_mixin_configs.replace('${mod_id}', mod_id);
-    clientRunArgs += "--mixin ${resolved_core_config}"
-    serverRunArgs += "--mixin ${resolved_core_config}"
+    mappings = project.mcpVersion
+
+    clientJvmArgs += "-Dfml.coreMods.load=me.gavin.mimeware.mixin.MixinLoader"
+    serverJvmArgs += "-Dfml.coreMods.load=me.gavin.mimeware.mixin.MixinLoader"
+    clientRunArgs += "--mixin mixins.mimeware.json"
+    serverRunArgs += "--mixin mixins.mimeware.json"
 }
 
 repositories {
@@ -47,29 +41,28 @@ dependencies {
         exclude module: 'commons-io'
         exclude module: 'gson'
     }
-
     compile 'com.github.ZeroMemes:Alpine:1.5'
     compile 'net.jodah:typetools:0.5.0'
     compile 'club.minnced:java-discord-rpc:2.0.1'
 }
 
 processResources {
+    // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
 
+    // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
+        include "mcmod.info"
 
-        expand 'mod_id': mod_id, 'mod_name': mod_name, 'version': project.version,
-                'mcversion': project.minecraft.version, 'mod_description': mod_description,
-                'mod_author': mod_author
+        // replace version and mcversion
+        expand "version": project.version, "mcversion": project.minecraft.version
     }
 
+    // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+        exclude "mcmod.info"
     }
-
-    rename "(.+_at.cfg)", 'META-INF/$1'
 }
 
 mixin {
@@ -98,15 +91,13 @@ shadowJar {
 
 jar {
     manifest {
-		attributes (
-			"FMLAT": "mimeware_at.cfg",
-			"FMLCorePlugin": mod_core_plugin,
-			"FMLCorePluginContainsFMLMod": "true",
-			"ForceLoadAsMod": "true",
-			"TweakClass": "org.spongepowered.asm.launch.MixinTweaker",
-			"TweakOrder": "0",
-			"MixinConfigs": mod_mixin_configs.replace('${mod_id}', mod_id)
-		)
+        //attributes "FMLAT": "mimeware_at.cfg"
+        attributes "FMLCorePlugin": "me.gavin.mimeware.mixin.MixinLoader"
+        attributes "FMLCorePluginContainsFMLMod": "true"
+        attributes "ForceLoadAsMod": "true"
+        attributes "TweakClass": "org.spongepowered.asm.launch.MixinTweaker"
+        attributes "TweakOrder": "0"
+        attributes "MixinConfigs": "mixins.mimeware.json"
     }
 }
 

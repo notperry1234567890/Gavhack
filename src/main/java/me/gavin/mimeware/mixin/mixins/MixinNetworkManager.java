@@ -2,7 +2,7 @@ package me.gavin.mimeware.mixin.mixins;
 
 import io.netty.channel.ChannelHandlerContext;
 import me.gavin.mimeware.Mimeware;
-import me.gavin.mimeware.mimeware.events.PacketEvent;
+import me.gavin.mimeware.client.events.PacketEvent;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import org.spongepowered.asm.mixin.Mixin;

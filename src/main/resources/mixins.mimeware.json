@@ -3,7 +3,8 @@
   "package": "me.gavin.mimeware.mixin.mixins",
   "refmap": "mixins.mimeware.refmap.json",
   "mixins": [
-    "MixinGuiMainMenu",
+    "AccessorMinecraft",
+
     "MixinMinecraft",
     "MixinNetworkManager"
   ],
