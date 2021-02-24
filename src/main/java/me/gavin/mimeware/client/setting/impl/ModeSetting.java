@@ -1,9 +1,5 @@
 package me.gavin.mimeware.client.setting.impl;
 
-/*
- * Written by @SrgantMooMoo on 11/17/20.
- */
-
 import me.gavin.mimeware.client.module.Module;
 import me.gavin.mimeware.client.setting.Setting;
 
@@ -28,10 +24,6 @@ public class ModeSetting extends Setting {
 
     public void setMode(String mode) {
         this.index = this.modes.indexOf(mode);
-
-        //if(Main.saveLoad != null) {
-        //    Main.saveLoad.save();
-        //}
     }
 
     public boolean is(String mode) {

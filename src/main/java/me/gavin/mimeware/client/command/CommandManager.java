@@ -32,6 +32,8 @@ public class CommandManager {
         add(new ToggleCMD());
         add(new HelpCMD());
         add(new PrefixCMD());
+        add(new ModulesCMD());
+        add(new BindCMD());
     }
 
     private void add(CommandBase command) {

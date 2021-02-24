@@ -1,9 +1,5 @@
 package me.gavin.mimeware.client.setting.impl;
 
-/*
- * Written by @SrgantMooMoo on 11/17/20.
- */
-
 import me.gavin.mimeware.client.module.Module;
 import me.gavin.mimeware.client.setting.Setting;
 
