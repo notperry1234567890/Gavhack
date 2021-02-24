@@ -34,6 +34,15 @@ public class CommandManager {
         add(new PrefixCMD());
         add(new ModulesCMD());
         add(new BindCMD());
+        add(new SayCMD());
+        add(new LegitCMD());
+
+        commands.sort(this::compareTo);
+    }
+
+    // sort commands alphabetically
+    private int compareTo(CommandBase cmd1, CommandBase cmd2) {
+        return Integer.compare(cmd1.getName().compareTo(cmd2.getName()), 0);
     }
 
     private void add(CommandBase command) {

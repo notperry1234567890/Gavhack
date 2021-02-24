@@ -30,6 +30,12 @@ public class ModuleManager {
         // misc
         add(new ChatSuffix());
         add(new ClickGUI());
+
+        modules.sort(this::compareTo);
+    }
+
+    private int compareTo(Module mod1, Module mod2) {
+        return Integer.compare(mod1.getName().compareTo(mod2.getName()), 0);
     }
 
     private void add(Module m) {

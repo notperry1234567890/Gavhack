@@ -1,6 +1,7 @@
 package me.gavin.mimeware.client.gui.clickgui;
 
 import me.gavin.mimeware.Mimeware;
+import me.gavin.mimeware.client.misc.Utils;
 import me.gavin.mimeware.client.module.Category;
 import net.minecraft.client.gui.GuiScreen;
 import org.lwjgl.input.Keyboard;
@@ -38,7 +39,16 @@ public class GuiHackManager extends GuiScreen {
     }
 
     @Override
-    public void mouseClicked(int mouseX, int mouseY, int mouseButton) { }
+    public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
+        if (mouseButton == 1) {
+            panels.forEach(panel -> {
+                if (panel.isMouseWithinHeader(mouseX, mouseY)) {
+                    panel.toggleOpen();
+                    Utils.playClick();
+                }
+            });
+        }
+    }
 
     @Override
     public void mouseReleased(int mouseX, int mouseY, int mouseButton) { }

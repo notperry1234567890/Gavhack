@@ -15,6 +15,7 @@ public class Panel {
 
     private int x, y, dragX, dragY, width, height;
     private Category category;
+    private boolean open;
 
     private List<Module> modules;
 
@@ -34,5 +35,9 @@ public class Panel {
 
     public boolean isMouseWithinHeader(int mouseX, int mouseY) {
         return mouseX > x && mouseX < x + width && mouseY > y && mouseY < y + height;
+    }
+
+    public void toggleOpen() {
+        this.open = !this.open;
     }
 }

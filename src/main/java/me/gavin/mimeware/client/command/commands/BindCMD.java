@@ -19,12 +19,15 @@ public class BindCMD extends CommandBase {
             if (targetMod != null) {
                 targetMod.keyBind.setKeyCode(Keyboard.getKeyIndex(keyName));
                 Utils.printMSG("Bound " + targetMod.getName() + " to " + keyName);
+                return;
             } else {
                 Utils.printMSG("Unable to find the specified module");
                 sendSyntaxError();
+                return;
             }
         } else {
             sendSyntaxError();
+            return;
         }
     }
 }
