@@ -4,6 +4,8 @@
   "refmap": "mixins.mimeware.refmap.json",
   "mixins": [
     "AccessorMinecraft",
+    "AccessorTimer",
+    "AccessorPlayerControllerMP",
 
     "MixinMinecraft",
     "MixinNetworkManager"

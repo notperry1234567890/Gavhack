@@ -2,12 +2,16 @@ package me.gavin.mimeware.client.module;
 
 import me.gavin.mimeware.Mimeware;
 import me.gavin.mimeware.client.setting.Setting;
+import me.gavin.mimeware.client.setting.impl.KeyBindSetting;
 import net.minecraft.client.Minecraft;
+import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public abstract class Module {
+
+    public KeyBindSetting keyBind = new KeyBindSetting(Keyboard.KEY_NONE, this);
 
     protected Minecraft mc = Minecraft.getMinecraft();
     protected Mimeware mimeware = Mimeware.getMimeware();
@@ -21,6 +25,7 @@ public abstract class Module {
     public Module(String name, Category category) {
         this.name = name;
         this.category = category;
+        addSettings(keyBind);
     }
 
     public void addSettings(Setting... newSettings) {

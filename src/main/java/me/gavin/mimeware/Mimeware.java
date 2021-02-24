@@ -1,6 +1,7 @@
 package me.gavin.mimeware;
 
 import me.gavin.mimeware.client.command.CommandManager;
+import me.gavin.mimeware.client.gui.clickgui.GuiHackManager;
 import me.gavin.mimeware.client.misc.EventProcessor;
 import me.gavin.mimeware.client.misc.font.CFontManager;
 import me.gavin.mimeware.client.misc.font.CFontRenderer;
@@ -8,6 +9,7 @@ import me.gavin.mimeware.client.module.ModuleManager;
 import me.zero.alpine.EventBus;
 import me.zero.alpine.EventManager;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -40,6 +42,7 @@ public class Mimeware {
     public CommandManager commandManager;
     public ModuleManager modManager;
     public EventProcessor eventProcessor;
+    public GuiHackManager clickGui;
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
@@ -53,5 +56,7 @@ public class Mimeware {
         font = new CFontRenderer(CFontManager.UBUNTU_FONT, true, true);
         // setup commands
         commandManager = new CommandManager();
+        // gui
+        clickGui = new GuiHackManager();
     }
 }

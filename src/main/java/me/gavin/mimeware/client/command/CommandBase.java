@@ -41,6 +41,6 @@ public abstract class CommandBase {
     }
 
     public void sendSyntaxError() {
-        Utils.printMSG("Syntax error: " +  mimeware.commandManager.prefix + getSyntax());
+        Utils.printMSG("Syntax: " +  mimeware.commandManager.prefix + getSyntax());
     }
 }

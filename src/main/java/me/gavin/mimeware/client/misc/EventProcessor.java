@@ -81,6 +81,11 @@ public class EventProcessor {
     @SubscribeEvent
     public void onKey(InputEvent.KeyInputEvent event) {
         if (Keyboard.getEventKeyState()) {
+            mimeware.modManager.getMods().forEach(module -> {
+                if (Keyboard.getEventKey() == module.keyBind.getKeyCode())
+                    module.toggle();
+            });
+
             mimeware.EVENT_BUS.post(new KeyPressEvent(Keyboard.getEventKey()));
         }
     }

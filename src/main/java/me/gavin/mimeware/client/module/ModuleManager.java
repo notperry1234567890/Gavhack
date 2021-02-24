@@ -29,6 +29,7 @@ public class ModuleManager {
 
         // misc
         add(new ChatSuffix());
+        add(new ClickGUI());
     }
 
     private void add(Module m) {
