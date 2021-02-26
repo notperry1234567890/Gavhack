@@ -1,8 +1,14 @@
 buildscript {
     repositories {
         jcenter()
-        maven { url = 'https://files.minecraftforge.net/maven' }
-        maven { url = 'https://repo.spongepowered.org/maven' }
+        maven {
+            name = 'forge'
+            url = 'https://files.minecraftforge.net/maven'
+        }
+        maven {
+            name = 'SpongePowered'
+            url = 'https://repo.spongepowered.org/repository/maven-public/'
+        }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
@@ -11,63 +17,69 @@ buildscript {
     }
 }
 
-apply plugin: "net.minecraftforge.gradle.forge"
-apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'com.github.johnrengelman.shadow'
 
-group = 'me.gavin'
-version = '1.0'
-archivesBaseName = 'mimeware'
+version = mod_version
+group = mod_group + mod_name
+archivesBaseName = modid
+
+sourceCompatibility = targetCompatibility = '1.8'
+compileJava {
+    sourceCompatibility = targetCompatibility = '1.8'
+}
 
 minecraft {
-    version = project.forgeVersion
+    version = "1.12.2-14.23.5.2847"
     runDir = "run"
-    mappings = project.mcpVersion
-
-    clientJvmArgs += "-Dfml.coreMods.load=me.gavin.mimeware.mixin.MixinLoader"
-    serverJvmArgs += "-Dfml.coreMods.load=me.gavin.mimeware.mixin.MixinLoader"
-    clientRunArgs += "--mixin mixins.mimeware.json"
-    serverRunArgs += "--mixin mixins.mimeware.json"
+    mappings = "snapshot_20171003"
+    coreMod = coremod_path
 }
 
 repositories {
-    maven { url = "https://repo.spongepowered.org/maven" }
-    maven { url = 'https://impactdevelopment.github.io/maven/' }
+    maven {
+        name = 'spongepowered-repo'
+        url = 'https://repo.spongepowered.org/repository/maven-public/'
+    }
+    maven {
+        name = 'impactdevelopment-repo'
+        url = 'https://impactdevelopment.github.io/maven/'
+    }
 }
 
 dependencies {
-    provided('org.spongepowered:mixin:0.7.11-SNAPSHOT') {
+    compile('org.spongepowered:mixin:0.7.4-SNAPSHOT') {
+        exclude module: 'launchwrapper'
         exclude module: 'guava'
-        exclude module: 'commons-io'
         exclude module: 'gson'
+        exclude module: 'commons-io'
     }
+
     compile 'com.github.ZeroMemes:Alpine:1.5'
     compile 'net.jodah:typetools:0.5.0'
-    compile 'club.minnced:java-discord-rpc:2.0.1'
 }
 
 processResources {
-    // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
 
-    // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
-        include "mcmod.info"
+        include 'mcmod.info'
 
-        // replace version and mcversion
-        expand "version": project.version, "mcversion": project.minecraft.version
+        expand 'version':project.version, 'mcversion':project.minecraft.version
     }
 
-    // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
-        exclude "mcmod.info"
+        exclude 'mcmod.info'
     }
+
+    rename '(.+_at.cfg)', 'META-INF/$1'
 }
 
 mixin {
     defaultObfuscationEnv searge
-    add sourceSets.main, 'mixins.mimeware.refmap.json'
+    add sourceSets.main, 'gavhack.refmap.json'
 }
 
 reobf {
@@ -82,7 +94,6 @@ shadowJar {
         include(dependency('org.spongepowered:mixin'))
         include(dependency('com.github.ZeroMemes:Alpine'))
         include(dependency('net.jodah:typetools'))
-        include(dependency('club.minnced:java-discord-rpc'))
     }
     exclude 'dummyThing'
     exclude 'LICENSE.txt'
@@ -91,13 +102,15 @@ shadowJar {
 
 jar {
     manifest {
-        //attributes "FMLAT": "mimeware_at.cfg"
-        attributes "FMLCorePlugin": "me.gavin.mimeware.mixin.MixinLoader"
-        attributes "FMLCorePluginContainsFMLMod": "true"
-        attributes "ForceLoadAsMod": "true"
-        attributes "TweakClass": "org.spongepowered.asm.launch.MixinTweaker"
-        attributes "TweakOrder": "0"
-        attributes "MixinConfigs": "mixins.mimeware.json"
+        attributes(
+                'MixinConfigs': mixin_configs,
+                'tweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
+                'TweakOrder': 0,
+                'FMLCorePluginContainsFMLMod': 'true',
+                'FMLCorePlugin': coremod_path,
+                'ForceLoadAsMod': 'true',
+                'FMLAT': access_transformers
+        )
     }
 }
 

@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "compatibilityLevel": "JAVA_8",
+  "package": "me.gavin.gavhack.mixin.mixins",
+  "refmap": "gavhack.refmap.json",
+  "mixins": [
+    "MixinGuiMainMenu",
+    "MixinMinecraft",
+    "MixinNetworkManager"
+  ]
+}
