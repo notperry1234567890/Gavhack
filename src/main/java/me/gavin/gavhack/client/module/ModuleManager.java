@@ -28,6 +28,7 @@ public class ModuleManager {
 
         // world
         add(new FastPlace());
+        add(new Timer());
 
         // misc
         add(new ChatSuffix());

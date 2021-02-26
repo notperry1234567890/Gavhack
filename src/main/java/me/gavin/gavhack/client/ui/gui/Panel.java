@@ -1,5 +1,6 @@
 package me.gavin.gavhack.client.ui.gui;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import me.gavin.gavhack.Gavhack;
 import me.gavin.gavhack.client.module.Category;
 import me.gavin.gavhack.client.module.Module;
@@ -31,6 +32,10 @@ public class Panel {
         }
     }
 
+    public void mouseReleased(int mouseX, int mouseY, int mouseButton) {
+        buttons.forEach(moduleButton -> moduleButton.mouseReleased(mouseX, mouseY, mouseButton));
+    }
+
     public void updatePosition(int mouseX, int mouseY) {
         if (this.dragging) {
             this.x = (mouseX - dragX);
@@ -39,8 +44,8 @@ public class Panel {
     }
 
     public void draw(int mouseX, int mouseY) {
-        Gui.drawRect(x, y, x + width, y + height, 0xfc000000);
-        Gavhack.cfont.drawStringWithShadow(category.toString() + " (" + buttons.size() + ")", x + 3, y + 3, new Color(-1));
+        Gui.drawRect(x, y, x + width, y + height, 0xfcff0000);
+        Gavhack.cfont.drawStringWithShadow(ChatFormatting.BOLD + category.toString() + " (" + buttons.size() + ")", x + 3, y + 3, new Color(-1));
 
         if (open)
             buttons.forEach(moduleButton -> {

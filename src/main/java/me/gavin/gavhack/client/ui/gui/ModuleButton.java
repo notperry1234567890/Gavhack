@@ -6,9 +6,11 @@ import me.gavin.gavhack.client.module.Module;
 import me.gavin.gavhack.client.setting.Setting;
 import me.gavin.gavhack.client.setting.impl.BooleanSetting;
 import me.gavin.gavhack.client.setting.impl.ModeSetting;
+import me.gavin.gavhack.client.setting.impl.NumberSetting;
 import me.gavin.gavhack.client.ui.gui.components.BooleanComponent;
 import me.gavin.gavhack.client.ui.gui.components.KeybindComponent;
 import me.gavin.gavhack.client.ui.gui.components.ModeComponent;
+import me.gavin.gavhack.client.ui.gui.components.NumberComponent;
 import net.minecraft.client.gui.Gui;
 
 import java.awt.*;
@@ -39,6 +41,8 @@ public class ModuleButton {
                 settingComponents.add(new BooleanComponent(module, (BooleanSetting) s, x + width + 1, y + settingOffset, width, height, settingOffset));
             } else if (s instanceof ModeSetting) {
                 settingComponents.add(new ModeComponent(module, (ModeSetting) s, x + width + 1, y + settingOffset, width , height, settingOffset));
+            } else if (s instanceof NumberSetting) {
+                settingComponents.add(new NumberComponent(module, (NumberSetting) s, x + width + 1, y + settingOffset, width, height, settingOffset));
             }
 
             settingOffset += 14;
@@ -66,6 +70,10 @@ public class ModuleButton {
                 component.setPos(x + width + 1, y + component.offset);
                 component.draw(mouseX, mouseY);
             });
+    }
+
+    public void mouseReleased(int mouseX, int mouseY, int mouseButton) {
+        settingComponents.forEach(component -> component.mouseReleased(mouseX, mouseY, mouseButton));
     }
 
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {

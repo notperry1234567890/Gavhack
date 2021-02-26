@@ -19,9 +19,9 @@ public abstract class Component {
 
     public abstract void mouseClicked(int mouseX, int mouseY, int button);
 
-    public void keyTyped(char keyChar, int keyCode) {
+    public void mouseReleased(int mouseX, int mouseY, int button) { }
 
-    }
+    public void keyTyped(char keyChar, int keyCode) { }
 
     public void setPos(int x, int y) {
         this.x = x;

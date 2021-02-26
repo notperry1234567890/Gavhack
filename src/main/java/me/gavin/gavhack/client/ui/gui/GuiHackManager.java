@@ -68,6 +68,9 @@ public class GuiHackManager extends GuiScreen {
 
     @Override
     public void mouseReleased(int mouseX, int mouseY, int mouseButton) {
-        panels.forEach(panel -> panel.dragging = false);
+        panels.forEach(panel -> {
+            panel.dragging = false;
+            panel.mouseReleased(mouseX, mouseY, mouseButton);
+        });
     }
 }
