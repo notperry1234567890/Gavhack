@@ -15,4 +15,4 @@ credits:
 submit pull and i can review it !
 
 
-[Stars](https://starchart.cc/Gav06/Gavhack.svg)
+[![Stars](https://starchart.cc/Gav06/Gavhack.svg)](https://starchart.cc/Gav06/Gavhack)
