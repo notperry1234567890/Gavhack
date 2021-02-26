@@ -7,6 +7,7 @@ import net.minecraft.client.gui.GuiScreen;
 import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GuiHackManager extends GuiScreen {

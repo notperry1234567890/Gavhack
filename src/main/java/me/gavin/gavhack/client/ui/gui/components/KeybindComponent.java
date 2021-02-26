@@ -20,9 +20,9 @@ public class KeybindComponent extends Component {
     @Override
     public void draw(int mouseX, int mouseY) {
         if (isMouseWithin(mouseX, mouseY)) {
-            Gui.drawRect(x, y, x + width, y + height, 0x90cccccc);
+            Gui.drawRect(x, y, x + width, y + height, 0xcfcccccc);
         } else {
-            Gui.drawRect(x, y, x + width, y + height, 0x90000000);
+            Gui.drawRect(x, y, x + width, y + height, 0xcf000000);
         }
 
         if (listeningForKey) {
@@ -44,7 +44,11 @@ public class KeybindComponent extends Component {
     public void keyTyped(char keyChar, int keyCode) {
         if (listeningForKey) {
             Utils.playClick();
-            parent.keyBind.setKeyCode(keyCode);
+            if (keyCode == Keyboard.KEY_DELETE || keyCode == Keyboard.KEY_BACK) {
+                parent.keyBind.setKeyCode(0);
+            } else {
+                parent.keyBind.setKeyCode(keyCode);
+            }
             listeningForKey = false;
         }
     }

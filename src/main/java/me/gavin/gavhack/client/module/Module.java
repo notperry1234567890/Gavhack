@@ -66,4 +66,8 @@ public abstract class Module {
     public void onEnable() {}
 
     public void onDisable() {}
+
+    public Setting getSetting(String setting) {
+        return settings.stream().filter(setting1 -> setting1.name.equalsIgnoreCase(setting)).findFirst().orElse(null);
+    }
 }

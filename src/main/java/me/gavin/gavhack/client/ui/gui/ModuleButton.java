@@ -5,8 +5,10 @@ import me.gavin.gavhack.client.misc.Utils;
 import me.gavin.gavhack.client.module.Module;
 import me.gavin.gavhack.client.setting.Setting;
 import me.gavin.gavhack.client.setting.impl.BooleanSetting;
+import me.gavin.gavhack.client.setting.impl.ModeSetting;
 import me.gavin.gavhack.client.ui.gui.components.BooleanComponent;
 import me.gavin.gavhack.client.ui.gui.components.KeybindComponent;
+import me.gavin.gavhack.client.ui.gui.components.ModeComponent;
 import net.minecraft.client.gui.Gui;
 
 import java.awt.*;
@@ -17,7 +19,7 @@ public class ModuleButton {
     public int x, y, width, height, offset;
     public Module module;
     public Panel panel;
-    boolean open;
+    public boolean open;
 
     ArrayList<Component> settingComponents = new ArrayList<>();
 
@@ -34,20 +36,22 @@ public class ModuleButton {
         int settingOffset = -14;
         for (Setting s : module.settings) {
             if (s instanceof BooleanSetting) {
-                settingComponents.add(new BooleanComponent(module, (BooleanSetting) s, x + width, y + settingOffset, width, height, settingOffset));
+                settingComponents.add(new BooleanComponent(module, (BooleanSetting) s, x + width + 1, y + settingOffset, width, height, settingOffset));
+            } else if (s instanceof ModeSetting) {
+                settingComponents.add(new ModeComponent(module, (ModeSetting) s, x + width + 1, y + settingOffset, width , height, settingOffset));
             }
 
             settingOffset += 14;
         }
 
-        settingComponents.add(new KeybindComponent(module, x + width, y + settingOffset, width, height, settingOffset));
+        settingComponents.add(new KeybindComponent(module, x + width + 1, y + settingOffset, width, height, settingOffset));
     }
 
     public void draw(int mouseX, int mouseY) {
         if (isMouseWithin(mouseX, mouseY)) {
-            Gui.drawRect(x, y, x + width, y + height, 0x90cccccc);
+            Gui.drawRect(x, y, x + width, y + height, 0xcfcccccc);
         } else {
-            Gui.drawRect(x, y, x + width, y + height, 0x90000000);
+            Gui.drawRect(x, y, x + width, y + height, 0xcf000000);
         }
 
         int color = -1;
@@ -59,7 +63,7 @@ public class ModuleButton {
 
         if (open)
             settingComponents.forEach(component -> {
-                component.setPos(x + width, y + component.offset);
+                component.setPos(x + width + 1, y + component.offset);
                 component.draw(mouseX, mouseY);
             });
     }
@@ -73,6 +77,9 @@ public class ModuleButton {
             }
 
             if (mouseButton == 1) {
+                if (!open) {
+                    panel.buttons.forEach(moduleButton -> moduleButton.open = false);
+                }
                 open = !open;
             }
         }

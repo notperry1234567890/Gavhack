@@ -39,7 +39,7 @@ public class Panel {
     }
 
     public void draw(int mouseX, int mouseY) {
-        Gui.drawRect(x, y, x + width, y + height, 0xcc000000);
+        Gui.drawRect(x, y, x + width, y + height, 0xfc000000);
         Gavhack.cfont.drawStringWithShadow(category.toString() + " (" + buttons.size() + ")", x + 3, y + 3, new Color(-1));
 
         if (open)

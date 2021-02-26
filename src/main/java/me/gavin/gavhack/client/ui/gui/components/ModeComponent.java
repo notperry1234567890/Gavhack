@@ -3,17 +3,17 @@ package me.gavin.gavhack.client.ui.gui.components;
 import me.gavin.gavhack.Gavhack;
 import me.gavin.gavhack.client.misc.Utils;
 import me.gavin.gavhack.client.module.Module;
-import me.gavin.gavhack.client.setting.impl.BooleanSetting;
+import me.gavin.gavhack.client.setting.impl.ModeSetting;
 import me.gavin.gavhack.client.ui.gui.Component;
 import net.minecraft.client.gui.Gui;
 
 import java.awt.*;
 
-public class BooleanComponent extends Component {
+public class ModeComponent extends Component {
 
-    public BooleanSetting setting;
+    public ModeSetting setting;
 
-    public BooleanComponent(Module parent, BooleanSetting setting, int x, int y, int width, int height, int offset) {
+    public ModeComponent(Module parent, ModeSetting setting, int x, int y, int width, int height, int offset) {
         super(parent, x, y, width, height, offset);
         this.setting = setting;
     }
@@ -22,8 +22,7 @@ public class BooleanComponent extends Component {
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         if (isMouseWithin(mouseX, mouseY)) {
             Utils.playClick();
-            // gay code idc
-            ((BooleanSetting)parent.getSetting(setting.name)).toggle();
+            ((ModeSetting)parent.getSetting(setting.name)).cycle();
         }
     }
 
@@ -35,10 +34,6 @@ public class BooleanComponent extends Component {
             Gui.drawRect(x, y, x + width, y + height, 0xcf000000);
         }
 
-        if (setting.enabled) {
-            Gavhack.cfont.drawStringWithShadow(setting.name, x + 3, y + 3, new Color(0xff0000));
-        } else {
-            Gavhack.cfont.drawStringWithShadow(setting.name, x + 3, y + 3, new Color(-1));
-        }
+        Gavhack.cfont.drawStringWithShadow(setting.name + ": " + setting.getMode(), x + 3, y + 3, new Color(-1));
     }
 }
