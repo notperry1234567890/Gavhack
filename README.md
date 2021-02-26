@@ -12,4 +12,7 @@ credits:
 - Readme download counter and LoC counter badge - moomooooo/postman
 
 
-submit pull request if you want and I will review!
+submit pull and i can review it !
+
+
+[Stars](https://starchart.cc/Gav06/Gavhack.svg)
