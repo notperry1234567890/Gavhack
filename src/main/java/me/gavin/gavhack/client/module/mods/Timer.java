@@ -9,7 +9,7 @@ import me.zero.alpine.listener.Listener;
 
 public class Timer extends Module {
 
-    public NumberSetting timer = new NumberSetting("TickLength", this, 60, 1, 200, 5);
+    public NumberSetting timer = new NumberSetting("TickLength", this, 60, 5, 200, 5);
 
     public Timer() {
         super("Timer", Category.World);

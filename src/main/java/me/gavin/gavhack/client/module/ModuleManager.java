@@ -17,14 +17,16 @@ public class ModuleManager {
     private void init() {
         // combat
         add(new Criticals());
+        add(new FastUtil());
 
         // render
-        //add(new Fullbright());
+        add(new Fullbright());
         add(new ESP());
         //add(new Nametags());
 
         // movement
         add(new Sprint());
+        add(new Step());
 
         // world
         add(new FastPlace());

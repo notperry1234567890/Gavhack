@@ -4,6 +4,7 @@
   "package": "me.gavin.gavhack.mixin.mixins",
   "refmap": "gavhack.refmap.json",
   "mixins": [
+    "MixinAbstractClientPlayer",
     "MixinGuiMainMenu",
     "MixinMinecraft",
     "MixinNetworkManager"

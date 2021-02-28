@@ -64,6 +64,9 @@ public class ModuleButton {
             color = 0xff0000;
 
         Gavhack.cfont.drawStringWithShadow(module.getName(), x + 3, y + 3, new Color(color));
+        if (settingComponents.size() > 1) {
+            Gavhack.cfont.drawStringWithShadow("...", x + width - Gavhack.cfont.getStringWidth("...") - 3, y + 3, new Color(color));
+        }
 
         if (open)
             settingComponents.forEach(component -> {

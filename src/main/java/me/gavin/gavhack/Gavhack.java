@@ -1,6 +1,7 @@
 package me.gavin.gavhack;
 
 import me.gavin.gavhack.client.command.CommandManager;
+import me.gavin.gavhack.client.misc.CapeUtil;
 import me.gavin.gavhack.client.misc.EventProcessor;
 import me.gavin.gavhack.client.misc.font.CFontManager;
 import me.gavin.gavhack.client.misc.font.CFontRenderer;
@@ -33,6 +34,7 @@ public class Gavhack {
     public static ModuleManager modManager;
     public static CommandManager commandManager;
     public static GuiHackManager gui;
+    public static CapeUtil capeUtil;
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
@@ -48,6 +50,8 @@ public class Gavhack {
         log("Command manager initialized");
         gui = new GuiHackManager();
         log("Click GUI initialized");
+        capeUtil = new CapeUtil();
+        log("Cape util initialized");
 
         log("Gavhack finished initialization");
     }

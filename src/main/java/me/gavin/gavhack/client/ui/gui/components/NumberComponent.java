@@ -1,6 +1,7 @@
 package me.gavin.gavhack.client.ui.gui.components;
 
 import me.gavin.gavhack.Gavhack;
+import me.gavin.gavhack.client.misc.Utils;
 import me.gavin.gavhack.client.module.Module;
 import me.gavin.gavhack.client.setting.impl.NumberSetting;
 import me.gavin.gavhack.client.ui.gui.Component;
@@ -26,6 +27,7 @@ public class NumberComponent extends Component {
     @Override
     public void mouseClicked(int mouseX, int mouseY, int button) {
         if (isMouseWithin(mouseX, mouseY) && button == 0) {
+            Utils.playClick();
             this.draggingSlider = true;
         }
     }
@@ -42,15 +44,19 @@ public class NumberComponent extends Component {
         Gui.drawRect(x, y, x + width, y + height, 0xcf000000);
 
         // drawing slider
-        Gui.drawRect(x, y, (int) (x + sliderWidth), y + height, 0xff0000);
-        Gavhack.cfont.drawStringWithShadow(setting.name, x + 3, y + 3, new Color(-1));
+        if (isMouseWithin(mouseX, mouseY)) {
+            Gui.drawRect(x, y, (int) (x + sliderWidth), y + height, 0xffFF6363);
+        } else {
+            Gui.drawRect(x, y, (int) (x + sliderWidth), y + height, 0xffff0000);
+        }
+        Gavhack.cfont.drawStringWithShadow(setting.name + " " + setting.getValue(), x + 3, y + 3, new Color(-1));
     }
 
     public void updateComponent(int mouseX, int mouseY) {
-        double diff = Math.min(80, Math.max(0, mouseX - this.x));
+        double diff = Math.min(width, Math.max(0, mouseX - this.x));
         double min = this.setting.getMinimun();
         double max = this.setting.getMaximum();
-        this.sliderWidth = 80 * (this.setting.getValue() - min) / (max - min);
+        this.sliderWidth = width * (this.setting.getValue() - min) / (max - min);
         if (this.draggingSlider) {
             if (diff == 0) {
                 this.setting.setValue(this.setting.getMinimun());
